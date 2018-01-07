@@ -53,29 +53,38 @@ sudo make install M=32
 
 The build products are installed in the following locations:
 ```bash
-opt
-└── digilent
-    ├── linux_x86_64    # 64-bit binaries and libraries for Linux
-    │   ├── bin
+opt/
+└── digilent/
+    ├── linux_x86_64/   # 64-bit binaries and libraries for Linux
+    │   ├── bin/
     │   │   ...
-    │   ├── sbin
+    │   ├── sbin/
     │   │   ...
-    │   └── lib
+    │   └── lib/
     │       ...
-    ├── linux_x86       # 32-bit binaries and libraries for Linux
-    │   ├── bin
+    ├── linux_x86/      # 32-bit binaries and libraries for Linux
+    │   ├── bin/
     │   │   ...
-    │   ├── sbin
+    │   ├── sbin/
     │   │   ...
-    │   └── lib
+    │   └── lib/
     │       ...
-    └── share           # Architecture independent data files.
-        ├── data
+    └── share/          # Architecture independent data files.
+        ├── data/
         │   ...
-        ├── dsumecfg
+        ├── dsumecfg/
         │   ...
-        └── man
+        └── man/
             ...
+etc/
+├── digilent-adept.conf
+├── ld.so.conf.d/
+│    ├── digilent-adept-libraries.conf
+│    ...
+├── udev/
+│   ├── rules.d/
+│       ├── 52-digilent-usb.rules
+        ...
 ```
 
 Notes
