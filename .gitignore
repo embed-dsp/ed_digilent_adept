@@ -6,3 +6,6 @@ src/
 
 # Backup files
 *~
+
+# Misc files
+*.tar.gz
