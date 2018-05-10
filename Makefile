@@ -7,7 +7,7 @@
 # $Revision: $
 
 # Runtime version.
-RUNTIME_VERSION = 2.16.6
+RUNTIME_VERSION = 2.17.1
 
 # Utilities version.
 UTILITIES_VERSION = 2.2.1
@@ -53,7 +53,7 @@ all:
 	@echo "make prepare [M=...]"
 	@echo ""
 	@echo "## Install"
-	@echo "make install [M=...]"
+	@echo "sudo make install [M=...]"
 	@echo ""
 	@echo "## Uninstall"
 	@echo "sudo make uninstall [M=...]"
