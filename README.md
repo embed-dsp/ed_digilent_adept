@@ -1,36 +1,60 @@
 
-Install of Digilent Adept 2 Runtime and Utilities
-=================================================
+# Install of Digilent Adept 2 Runtime and Utilities
 
 This repository contains make file for easy install of the [Digilent Adept 2](https://reference.digilentinc.com/reference/software/adept/start?redirect=1) Runtime and Utilities.
 
-Get Source Code
-===============
+The Adept Runtime consists of the shared libraries, firmware images, and
+configuration files necessary to communicate with Digilent's devices.
+
+Adept Utilities is a set of command line applications that can be used in
+conjunction with the Adept Runtime to manage and communicate with
+Digilent's devices.
+
+Currently Adept Utilities consists of three applications: Digilent Adept
+Utility (**dadutil**), Digilent JTAG Config Utility (**djtgcfg**), and Digilent
+NetFPGA-SUME Flash Configuration Utility (**dsumecfg**).
+* The Adept Utility (**dadutil**) provides a command line interface for discovering 
+  Digilent devices, querying device information, manipulating the device table, 
+  and setting  device information. 
+* The JTAG Config Utility (**djtgcfg**) allows users to initialize, program, and 
+  erase FPGAs  and CPLDs on Digilent boards using a command line interface.
+* The NetFPGA-SUME Flash Configuration Utility (**dsumecfg**) allows users to
+  write bit or bin files to a specific section of the flash memory on
+  Digilent's NetFPGA-SUME.
+
+
+# Get Source Code
 
 ## ed_digilent_adept
+
 ```bash
 git clone https://github.com/embed-dsp/ed_digilent_adept.git
 ```
 
 ## Digilent Adept 2
+
+```bash
+# Open Web Browser and download the Digilent Adept 2 Runtime and Utilities (ZIP files)
+# and store in the ed_digilent_adept directory.
+https://reference.digilentinc.com/reference/software/adept/start?redirect=1
+```
+
 ```bash
 # Enter the ed_digilent_adept directory.
 cd ed_digilent_adept
 
-# Open Web Browser and download the Digilent Adept 2 Runtime and Utilities and store in the ed_digilent_adept directory.
-https://reference.digilentinc.com/reference/software/adept/start?redirect=1
-
 # Edit the Makefile for selecting the Runtime version.
 vim Makefile
-RUNTIME_VERSION = 2.16.6
+RUNTIME_VERSION = 2.17.1
 
 # Edit the Makefile for selecting the Utilities version.
 vim Makefile
 UTILITIES_VERSION = 2.2.1
 ```
 
-Build
-=====
+
+# Build
+
 ```bash
 # Unpack 64-bit source code into build/ directory (Default: M=64)
 make prepare
@@ -40,8 +64,9 @@ make prepare M=64
 make prepare M=32
 ```
 
-Install
-=======
+
+# Install
+
 ```bash
 # Install 64-bit build products (Default: M=64)
 sudo make install
@@ -52,24 +77,29 @@ sudo make install M=32
 ```
 
 The build products are installed in the following locations:
+
 ```bash
 opt/
 └── digilent/
-    ├── linux_x86_64/   # 64-bit binaries and libraries for Linux
+    ├── linux_x86_64/       # 64-bit binaries and libraries for Linux
     │   ├── bin/
-    │   │   ...
+    |   |   ├── dadutil     # Digilent Adept Utility
+    |   |   ├── djtgcfg     # Digilent JTAG Config Utility
+    |   |   └── dsumecfg    # Digilent NetFPGA-SUME Flash Configuration Utility
     │   ├── sbin/
-    │   │   ...
+    |   |   └── dftdrvdtch  # ... Runtime
     │   └── lib/
     │       ...
-    ├── linux_x86/      # 32-bit binaries and libraries for Linux
+    ├── linux_x86/          # 32-bit binaries and libraries for Linux
     │   ├── bin/
-    │   │   ...
+    |   |   ├── dadutil     # Digilent Adept Utility
+    |   |   ├── djtgcfg     # Digilent JTAG Config Utility
+    |   |   └── dsumecfg    # Digilent NetFPGA-SUME Flash Configuration Utility
     │   ├── sbin/
-    │   │   ...
+    |   |   └── dftdrvdtch  # ... Runtime
     │   └── lib/
     │       ...
-    └── share/          # Architecture independent data files.
+    └── share/              # Architecture independent data files.
         ├── data/
         │   ...
         ├── dsumecfg/
@@ -87,8 +117,14 @@ etc/
         ...
 ```
 
-Notes
-=====
 
-This has been testes with the following Linux distributions and compilers:
-* `Fedora-27 (64-bit)` and `gcc-7.2.1`
+# Uninstall
+
+```bash
+# Uninstall 64-bit build products (Default: M=64)
+sudo make uninstall
+sudo make uninstall M=64
+
+# Uninstall 32-bit build products.
+sudo make uninstall M=32
+```
