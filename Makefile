@@ -6,33 +6,42 @@
 # $Date:     $
 # $Revision: $
 
+
 # Runtime version.
-RUNTIME_VERSION = 2.17.1
+RUNTIME_VERSION = 2.19.2
 
 # Utilities version.
 UTILITIES_VERSION = 2.2.1
+
+# ==============================================================================
+
+# System and Machine.
+SYSTEM = $(shell ./bin/get_system.sh)
+MACHINE = $(shell ./bin/get_machine.sh)
 
 # Build for 32-bit or 64-bit (Default)
 ifeq ($(M),)
 	M = 64
 endif
 
-# Architecture.
-ARCH = $(shell ./bin/get_arch.sh $(M))
-
 ifeq ($(M), 64)
+	MACHINE = "x86_64"
 	RUNTIME_PACKAGE = digilent.adept.runtime_$(RUNTIME_VERSION)-x86_64
 	RUNTIME_BINDIR = $(RUNTIME_PACKAGE)/bin64
 	RUNTIME_LIBDIR = $(RUNTIME_PACKAGE)/lib64
 	UTILITIES_PACKAGE = digilent.adept.utilities_$(UTILITIES_VERSION)-x86_64
 	UTILITIES_BINDIR = $(UTILITIES_PACKAGE)/bin64
 else
+	MACHINE = "x86"
 	RUNTIME_PACKAGE = digilent.adept.runtime_$(RUNTIME_VERSION)-i686
 	RUNTIME_BINDIR = $(RUNTIME_PACKAGE)/bin
 	RUNTIME_LIBDIR = $(RUNTIME_PACKAGE)/lib
 	UTILITIES_PACKAGE = digilent.adept.utilities_$(UTILITIES_VERSION)-i686
 	UTILITIES_BINDIR = $(UTILITIES_PACKAGE)/bin
 endif
+
+# Architecture.
+ARCH = $(SYSTEM)_$(MACHINE)
 
 # Installation directories.
 PREFIX = /opt/digilent
@@ -48,6 +57,8 @@ LIBDIR = $(EXEC_PREFIX)/lib
 
 
 all:
+	@echo "ARCH   = $(ARCH)"
+	@echo "PREFIX = $(PREFIX)"
 	@echo ""
 	@echo "## Build"
 	@echo "make prepare [M=...]"

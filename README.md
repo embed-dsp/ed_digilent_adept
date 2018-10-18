@@ -1,7 +1,8 @@
 
 # Install of Digilent Adept 2 Runtime and Utilities
 
-This repository contains make file for easy install of the [Digilent Adept 2](https://reference.digilentinc.com/reference/software/adept/start?redirect=1) Runtime and Utilities.
+This repository contains make file for easy install of the 
+[Digilent Adept 2](https://reference.digilentinc.com/reference/software/adept/start?redirect=1) Runtime and Utilities.
 
 The Adept Runtime consists of the shared libraries, firmware images, and
 configuration files necessary to communicate with Digilent's devices.
@@ -26,6 +27,7 @@ NetFPGA-SUME Flash Configuration Utility (**dsumecfg**).
 # Get Source Code
 
 ## ed_digilent_adept
+Get the code for this component to a local directory on your PC.
 
 ```bash
 git clone https://github.com/embed-dsp/ed_digilent_adept.git
@@ -33,22 +35,32 @@ git clone https://github.com/embed-dsp/ed_digilent_adept.git
 
 ## Digilent Adept 2
 
+Open Web Browser and download the Digilent Adept 2 Runtime and Utilities (ZIP files)
+and store in the ed_digilent_adept directory.
 ```bash
-# Open Web Browser and download the Digilent Adept 2 Runtime and Utilities (ZIP files)
-# and store in the ed_digilent_adept directory.
 https://reference.digilentinc.com/reference/software/adept/start?redirect=1
 ```
 
+Enter the ed_digilent_adept directory.
 ```bash
-# Enter the ed_digilent_adept directory.
 cd ed_digilent_adept
+```
 
-# Edit the Makefile for selecting the Runtime version.
+Edit the **Makefile** for selecting the Runtime version.
+```bash
+# Edit Makefile ...
 vim Makefile
-RUNTIME_VERSION = 2.17.1
 
-# Edit the Makefile for selecting the Utilities version.
+# ... and set the Runtime version.
+RUNTIME_VERSION = 2.19.2
+```
+
+Edit the **Makefile** for selecting the Utilities version.
+```bash
+# Edit Makefile ...
 vim Makefile
+
+# ... and set the Utilities version.
 UTILITIES_VERSION = 2.2.1
 ```
 
@@ -59,7 +71,9 @@ UTILITIES_VERSION = 2.2.1
 # Unpack 64-bit source code into build/ directory (Default: M=64)
 make prepare
 make prepare M=64
+```
 
+```bash
 # Unpack 32-bit source code into build/ directory.
 make prepare M=32
 ```
@@ -71,7 +85,9 @@ make prepare M=32
 # Install 64-bit build products (Default: M=64)
 sudo make install
 sudo make install M=64
+```
 
+```bash
 # Install 32-bit build products.
 sudo make install M=32
 ```
@@ -79,7 +95,7 @@ sudo make install M=32
 The build products are installed in the following locations:
 
 ```bash
-opt/
+/opt/
 └── digilent/
     ├── linux_x86_64/       # 64-bit binaries and libraries for Linux
     │   ├── bin/
@@ -106,7 +122,10 @@ opt/
         │   ...
         └── man/
             ...
-etc/
+```
+
+```bash
+/etc/
 ├── digilent-adept.conf
 ├── ld.so.conf.d/
 │    ├── digilent-adept-libraries.conf
@@ -124,7 +143,9 @@ etc/
 # Uninstall 64-bit build products (Default: M=64)
 sudo make uninstall
 sudo make uninstall M=64
+```
 
+```bash
 # Uninstall 32-bit build products.
 sudo make uninstall M=32
 ```
