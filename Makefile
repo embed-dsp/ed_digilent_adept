@@ -1,23 +1,40 @@
 
-# Copyright (c) 2018 embed-dsp
-# All Rights Reserved
-
-# $Author:   Gudmundur Bogason <gb@embed-dsp.com> $
-# $Date:     $
-# $Revision: $
+# Copyright (c) 2018-2023 embed-dsp, All Rights Reserved.
+# Author: Gudmundur Bogason <gb@embed-dsp.com>
 
 
 # Runtime version.
-RUNTIME_VERSION = 2.19.2
+# RUNTIME_VERSION = 2.19.2
+RUNTIME_VERSION = 2.26.1
 
 # Utilities version.
-UTILITIES_VERSION = 2.2.1
+# UTILITIES_VERSION = 2.2.1
+UTILITIES_VERSION = 2.7.1
 
 # ==============================================================================
 
-# System and Machine.
-SYSTEM = $(shell ./bin/get_system.sh)
-MACHINE = $(shell ./bin/get_machine.sh)
+# Determine system.
+SYSTEM = unknown
+ifeq ($(findstring Linux, $(shell uname -s)), Linux)
+	SYSTEM = linux
+endif
+ifeq ($(findstring MINGW32, $(shell uname -s)), MINGW32)
+	SYSTEM = mingw32
+endif
+ifeq ($(findstring MINGW64, $(shell uname -s)), MINGW64)
+	SYSTEM = mingw64
+endif
+ifeq ($(findstring CYGWIN, $(shell uname -s)), CYGWIN)
+	SYSTEM = cygwin
+endif
+
+# Determine machine.
+MACHINE = $(shell uname -m)
+
+# Architecture.
+ARCH = $(SYSTEM)_$(MACHINE)
+
+# ==============================================================================
 
 # Build for 32-bit or 64-bit (Default)
 ifeq ($(M),)
@@ -40,9 +57,6 @@ else
 	UTILITIES_BINDIR = $(UTILITIES_PACKAGE)/bin
 endif
 
-# Architecture.
-ARCH = $(SYSTEM)_$(MACHINE)
-
 # Installation directories.
 PREFIX = /opt/digilent
 EXEC_PREFIX = $(PREFIX)/$(ARCH)
@@ -59,6 +73,7 @@ LIBDIR = $(EXEC_PREFIX)/lib
 all:
 	@echo "ARCH   = $(ARCH)"
 	@echo "PREFIX = $(PREFIX)"
+#	@echo "EXEC_PREFIX = $(EXEC_PREFIX)"
 	@echo ""
 	@echo "## Build"
 	@echo "make prepare [M=...]"
@@ -77,8 +92,8 @@ all:
 .PHONY: prepare
 prepare:
 	-mkdir build
-	cd build && tar zxf ../$(RUNTIME_PACKAGE).tar.gz
-	cd build && tar zxf ../$(UTILITIES_PACKAGE).tar.gz
+	cd build && tar zxf ../src/$(RUNTIME_PACKAGE).tar.gz
+	cd build && tar zxf ../src/$(UTILITIES_PACKAGE).tar.gz
 
 
 .PHONY: install
