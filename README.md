@@ -2,7 +2,7 @@
 # Install of Digilent Adept 2 Runtime and Utilities
 
 This repository contains make file for easy install of the 
-[Digilent Adept 2](https://reference.digilentinc.com/reference/software/adept/start?redirect=1) Runtime and Utilities.
+[Digilent Adept 2](https://digilent.com/reference/software/adept/start?redirect=2) Runtime and Utilities.
 
 The Adept Runtime consists of the shared libraries, firmware images, and
 configuration files necessary to communicate with Digilent's devices.
@@ -38,7 +38,7 @@ git clone https://github.com/embed-dsp/ed_digilent_adept.git
 Open Web Browser and download the Digilent Adept 2 Runtime and Utilities (ZIP files)
 and store in the ed_digilent_adept directory.
 ```bash
-https://reference.digilentinc.com/reference/software/adept/start?redirect=1
+https://digilent.com/reference/software/adept/start?redirect=2
 ```
 
 Enter the ed_digilent_adept directory.
@@ -52,7 +52,7 @@ Edit the **Makefile** for selecting the Runtime version.
 vim Makefile
 
 # ... and set the Runtime version.
-RUNTIME_VERSION = 2.19.2
+RUNTIME_VERSION = 2.26.1
 ```
 
 Edit the **Makefile** for selecting the Utilities version.
@@ -61,7 +61,7 @@ Edit the **Makefile** for selecting the Utilities version.
 vim Makefile
 
 # ... and set the Utilities version.
-UTILITIES_VERSION = 2.2.1
+UTILITIES_VERSION = 2.7.1
 ```
 
 
