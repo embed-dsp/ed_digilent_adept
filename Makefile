@@ -4,11 +4,9 @@
 
 
 # Runtime version.
-# RUNTIME_VERSION = 2.19.2
-RUNTIME_VERSION = 2.26.1
+RUNTIME_VERSION = 2.27.9
 
 # Utilities version.
-# UTILITIES_VERSION = 2.2.1
 UTILITIES_VERSION = 2.7.1
 
 # ==============================================================================
@@ -18,15 +16,12 @@ SYSTEM = unknown
 ifeq ($(findstring Linux, $(shell uname -s)), Linux)
 	SYSTEM = linux
 endif
-ifeq ($(findstring MINGW32, $(shell uname -s)), MINGW32)
-	SYSTEM = mingw32
-endif
-ifeq ($(findstring MINGW64, $(shell uname -s)), MINGW64)
-	SYSTEM = mingw64
-endif
-ifeq ($(findstring CYGWIN, $(shell uname -s)), CYGWIN)
-	SYSTEM = cygwin
-endif
+# ifeq ($(findstring MINGW32, $(shell uname -s)), MINGW32)
+# 	SYSTEM = mingw32
+# endif
+# ifeq ($(findstring MINGW64, $(shell uname -s)), MINGW64)
+# 	SYSTEM = mingw64
+# endif
 
 # Determine machine.
 MACHINE = $(shell uname -m)
@@ -36,26 +31,12 @@ ARCH = $(SYSTEM)_$(MACHINE)
 
 # ==============================================================================
 
-# Build for 32-bit or 64-bit (Default)
-ifeq ($(M),)
-	M = 64
-endif
-
-ifeq ($(M), 64)
-	MACHINE = "x86_64"
-	RUNTIME_PACKAGE = digilent.adept.runtime_$(RUNTIME_VERSION)-x86_64
-	RUNTIME_BINDIR = $(RUNTIME_PACKAGE)/bin64
-	RUNTIME_LIBDIR = $(RUNTIME_PACKAGE)/lib64
-	UTILITIES_PACKAGE = digilent.adept.utilities_$(UTILITIES_VERSION)-x86_64
-	UTILITIES_BINDIR = $(UTILITIES_PACKAGE)/bin64
-else
-	MACHINE = "x86"
-	RUNTIME_PACKAGE = digilent.adept.runtime_$(RUNTIME_VERSION)-i686
-	RUNTIME_BINDIR = $(RUNTIME_PACKAGE)/bin
-	RUNTIME_LIBDIR = $(RUNTIME_PACKAGE)/lib
-	UTILITIES_PACKAGE = digilent.adept.utilities_$(UTILITIES_VERSION)-i686
-	UTILITIES_BINDIR = $(UTILITIES_PACKAGE)/bin
-endif
+# Build for 64-bit.
+RUNTIME_PACKAGE = digilent.adept.runtime_$(RUNTIME_VERSION)-x86_64
+RUNTIME_BINDIR = $(RUNTIME_PACKAGE)/bin64
+RUNTIME_LIBDIR = $(RUNTIME_PACKAGE)/lib64
+UTILITIES_PACKAGE = digilent.adept.utilities_$(UTILITIES_VERSION)-x86_64
+UTILITIES_BINDIR = $(UTILITIES_PACKAGE)/bin64
 
 # Installation directories.
 PREFIX = /opt/digilent
@@ -71,18 +52,18 @@ LIBDIR = $(EXEC_PREFIX)/lib
 
 
 all:
-	@echo "ARCH   = $(ARCH)"
-	@echo "PREFIX = $(PREFIX)"
-#	@echo "EXEC_PREFIX = $(EXEC_PREFIX)"
+	@echo "ARCH        = $(ARCH)"
+	@echo "PREFIX      = $(PREFIX)"
+	@echo "EXEC_PREFIX = $(EXEC_PREFIX)"
 	@echo ""
 	@echo "## Build"
-	@echo "make prepare [M=...]"
+	@echo "make prepare"
 	@echo ""
 	@echo "## Install"
-	@echo "sudo make install [M=...]"
+	@echo "sudo make install"
 	@echo ""
 	@echo "## Uninstall"
-	@echo "sudo make uninstall [M=...]"
+	@echo "sudo make uninstall"
 	@echo ""
 	@echo "## Cleanup"
 	@echo "make clean"
@@ -126,6 +107,7 @@ install-runtime:
 	cp -r build/$(RUNTIME_PACKAGE)/data $(DATADIR)
 	chmod 755 $(DATADIR)/data/firmware/*.so
 	chmod 644 $(DATADIR)/data/firmware/*.HEX
+	chmod 644 $(DATADIR)/data/firmware/*.img
 	chmod 644 $(DATADIR)/data/xbr/*.map
 	chmod 644 $(DATADIR)/data/xpla3/*.map
 	chmod 644 $(DATADIR)/data/jtscdvclist.txt
